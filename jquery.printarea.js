@@ -23,6 +23,7 @@
  *  @popTitle | [string]  | ('')                   | popup window title element
  *  @popClose | [boolean] | (false),true           | popup window close after printing
  *  @strict   | [boolean] | (undefined),true,false | strict or loose(Transitional) html 4.01 document standard or undefined to not include at all (only for popup option)
+ *  @landscape| [boolean] | (false),true           | print the page in landscape 
  */
 (function($) {
     var counter = 0;
@@ -33,7 +34,8 @@
                      popX     : 200,
                      popY     : 200,
                      popTitle : '',
-                     popClose : false };
+                     popClose : false,
+                     landscape: false };
 
     var settings = {};//global settings
 
@@ -98,6 +100,8 @@
             .each(function(){
                     head += '<link type="text/css" rel="stylesheet" href="' + $(this).attr("href") + '" >';
                 });
+        if(settings.landscape)
+            head += '<style type="text/css"> @media print{@page {size: landscape}} </style>';
         head += "</head>";
         return head;
     }
